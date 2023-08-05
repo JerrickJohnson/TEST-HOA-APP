@@ -75,6 +75,10 @@ a {
   font-weight: bold;
 }
 
+ul {
+  list-style-type: none;
+}
+
 a:hover {
   text-decoration: underline;
 }
@@ -111,6 +115,20 @@ button[disabled] {
 img {
   max-width: 100%;
 }
+
+.image {
+  position: absolute;
+  right: 0;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
 
 span[role="img"] {
   cursor: default;

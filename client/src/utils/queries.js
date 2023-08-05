@@ -51,6 +51,7 @@ export const QUERY_CATEGORIES = gql`
 export const QUERY_USER = gql`
   {
     user {
+      _id
       firstName
       lastName
       orders {
@@ -69,26 +70,16 @@ export const QUERY_USER = gql`
   }
 `;
 
-export const QUERY_SALEITEMS = gql`
-  query getSaleItems($salecategory: ID) {
-    saleitems(salecategory: $salecategory) {
-      _id
+export const QUERY_EVENTS = gql`
+  {
+    events {
       name
+      location
       description
-      price
-      image
-      salecategory {
-        _id
-      }
+      date
+      _id
     }
   }
 `;
 
-export const QUERY_SALECATEGORIES = gql`
-  {
-    salecategories {
-      _id
-      name
-    }
-  }
-`;
+

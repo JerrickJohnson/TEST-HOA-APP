@@ -7,12 +7,17 @@ import { QUERY_PRODUCTS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
 
+
+
 function ProductList() {
   const [state, dispatch] = useStoreContext();
+
 
   const { currentCategory } = state;
 
   const { loading, data } = useQuery(QUERY_PRODUCTS);
+
+  
 
   useEffect(() => {
     if (data) {
@@ -43,19 +48,24 @@ function ProductList() {
     );
   }
 
+
   return (
     <div className="my-2">
       <h2>Our Products:</h2>
+      {/* Render the list of products */}
       {state.products.length ? (
         <div className="flex-row">
           {filterProducts().map((product) => (
             <ProductItem
               key={product._id}
               _id={product._id}
-              image={product.image}
               name={product.name}
+              description={product.description}
+              image={product.image}
               price={product.price}
               quantity={product.quantity}
+              category={product.category}
+              seller={product.seller}
             />
           ))}
         </div>
@@ -65,6 +75,9 @@ function ProductList() {
       {loading ? <img src={spinner} alt="loading" /> : null}
     </div>
   );
+
+
 }
+
 
 export default ProductList;

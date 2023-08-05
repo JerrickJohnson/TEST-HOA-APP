@@ -7,7 +7,6 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
@@ -17,7 +16,18 @@ import Nav from './components/Nav';
 import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
+import Services from './pages/Services';
+import Events from './pages/Events';
 import Marketplace from './pages/Marketplace';
+import AddItem from './pages/AddItem';
+import NewEvent from './pages/NewEvent';
+import PaymentPage from './pages/PaymentPage';
+
+
+
+import ServiceRequests from './pages/ServiceRequests';
+
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -25,6 +35,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
+  console.log(token);
   return {
     headers: {
       ...headers,
@@ -67,8 +78,12 @@ function App() {
                 element={<OrderHistory />} 
               />
               <Route 
-                path="/marketPlace" 
+                path="/marketplace"
                 element={<Marketplace />} 
+              />
+              <Route 
+                path="/addItem"
+                element={<AddItem />} 
               />
               <Route 
                 path="/products/:id" 
@@ -78,6 +93,26 @@ function App() {
                 path="*" 
                 element={<NoMatch />} 
               />
+              <Route
+                path="/services"
+                element={<Services />}
+              />
+              <Route
+                path="/servicerequests"
+                element={<ServiceRequests />}
+              />
+              <Route
+                path="/events"
+                element={<Events />}
+              />
+              <Route
+                path="/newevent"
+                element={<NewEvent />}
+              />
+             <Route
+                path="/payments"
+                element={<PaymentPage />}   
+              />           
             </Routes>
           </StoreProvider>
         </div>

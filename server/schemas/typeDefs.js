@@ -6,20 +6,6 @@ const typeDefs = gql`
     name: String
   }
 
-  type SaleCategory {
-    _id: ID
-    name: String
-  }
-
-  type SaleItem {
-    _id: ID
-    name: String
-    description: String
-    image: String
-    price: Float
-    salecategory: SaleCategory
-  }
-
   type Product {
     _id: ID
     name: String
@@ -28,6 +14,8 @@ const typeDefs = gql`
     quantity: Int
     price: Float
     category: Category
+    seller: User
+    PurchasedBy: User
   }
 
   type Order {
@@ -41,7 +29,16 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
+    password: String
+    dob: String
+    phoneNumber: String
+    emergencyContact: String
+    emergencyContactPhoneNumber: String
     orders: [Order]
+    address: String
+    outstandingDues: Float
+    paidDues: Float
+    products: [Product] # Add this field to include the products associated with the user
   }
 
   type Checkout {
@@ -51,6 +48,35 @@ const typeDefs = gql`
   type Auth {
     token: ID
     user: User
+  }
+
+  type Events {
+    _id: ID
+    name: String
+    description: String
+    date: String
+    location: String
+    host: [User]
+    attendees: [User]
+    isPublic: Boolean
+    likes: Int
+  }
+
+  type Review {
+    _id: ID
+    reviewText: String
+    rating: Int
+    user: User
+    service: Service
+  }
+
+  type Service {
+    _id: ID
+    name: String
+    rating: Int
+    reviews: [Review]
+    category: String
+    image: String
   }
 
   input ProductInput {
@@ -69,18 +95,52 @@ const typeDefs = gql`
     user: User
     order(_id: ID!): Order
     checkout(products: [ProductInput]): Checkout
-    salecategories: [SaleCategory]
-    saleitems(salecategory: ID, name: String): [SaleItem]
-    saleitem(_id: ID!): SaleItem
+    events: [Events]
+    services: [Service]
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addUser(
+      firstName: String!,
+      lastName: String!,
+      email: String!,
+      password: String!,
+      address: String,
+      dob: String,
+      phoneNumber: String,
+      emergencyContact: String,
+      emergencyContactPhoneNumber: String
+    ): Auth
+    updateUser(
+      firstName: String,
+      lastName: String,
+      email: String,
+      password: String,
+      address: String,
+      dob: String,
+      phoneNumber: String,
+      emergencyContact: String,
+      emergencyContactPhoneNumber: String
+    ): User
     addOrder(products: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
+    addEvent(name: String, date: String, description: String, location: String): Events
+    addReview(reviewText: String!, rating: Int!, service: ID!): Service
+    addService(name: String!, rating: Int!, category: String!, image: String!): Service
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
+    # Add the addProduct mutation
+    addProduct(
+      name: String!,
+      description: String!,
+      image: String!,
+      price: Float!,
+      quantity: Int!, 
+      category: String!
+      seller: String!
+    ): Product
   }
+
 `;
+
 
 module.exports = typeDefs;

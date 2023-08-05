@@ -7,11 +7,11 @@ import {
   ADD_MULTIPLE_TO_CART,
   UPDATE_CATEGORIES,
   UPDATE_CURRENT_CATEGORY,
-  UPDATE_SALEITEMS,
-  UPDATE_SALECATEGORIES,
-  UPDATE_CURRENT_SALECATEGORY,
   CLEAR_CART,
-  TOGGLE_CART
+  TOGGLE_CART,
+  UPDATE_EVENTS,
+  SET_USER,
+  LOGOUT_USER
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -81,26 +81,20 @@ export const reducer = (state, action) => {
       return {
         ...state,
         currentCategory: action.currentCategory
-      }
-
-    case UPDATE_SALEITEMS:
-      return {
-          ...state,
-          saleitems: [...action.saleitems],
-      };      
-
-    case UPDATE_SALECATEGORIES:
-      return {
-        ...state,
-        categories: [...action.categories],
       };
 
-    case UPDATE_CURRENT_SALECATEGORY:
+      case SET_USER:
       return {
         ...state,
-        currentSaleCategory: action.currentSaleCategory
-      }
-    
+        user: action.user // this would contain the user object
+      };
+
+    case LOGOUT_USER:
+      return {
+        ...state,
+        user: null
+      };
+
 
     default:
       return state;

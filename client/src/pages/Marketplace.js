@@ -1,13 +1,18 @@
 import React from "react";
-import ForSaleList from "../components/ForSaleList";
-import SaleCategoryMenu from "../components/CategoryMenu";
-// import Cart from "../components/Cart";
+import { Link } from "react-router-dom";
+import ProductList from "../components/ProductList";
+import CategoryMenu from "../components/CategoryMenu";
+import Cart from "../components/Cart";
 
 const Marketplace = () => {
   return (
     <div className="container">
-      <SaleCategoryMenu /> 
-      <ForSaleList />
+      <Link to={`/AddItem`}>
+      <button type="button" className="btn btn-primary btn-lg">Sell Item</button>
+      </Link>
+      <CategoryMenu />
+      <ProductList />
+      <Cart />
     </div>
   );
 };

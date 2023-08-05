@@ -29,23 +29,203 @@ export const ADD_ORDER = gql`
   }
 `;
 
+// export const ADD_PRODUCT = gql`
+//   mutation addProduct($products: [ID]!) {
+//     addProduct(products: $products) {
+//       products {
+//         _id
+//         name
+//         description
+//         images
+//         price
+//         quantity
+//         category {
+//           name
+//         }
+//         seller {
+//           _id
+//       }
+//      }
+//    }
+//   }
+// `;
+
+export const ADD_PRODUCT = gql`
+mutation Mutation(
+    $name: String!, 
+    $description: String!, 
+    $image: String!, 
+    $price: Float!, 
+    $quantity: Int!, 
+    $category: String!, 
+    $seller: String!
+  ) {
+  addProduct(
+    name: $name, 
+    description: $description, 
+    image: $image, 
+    price: $price, 
+    quantity: $quantity, 
+    category: $category, 
+    seller: $seller
+  ) {
+    _id
+    name
+    description
+    image
+    quantity
+    price
+    category {
+      _id
+      name
+    }
+  }
+}
+`;
+
 export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!
     $lastName: String!
     $email: String!
     $password: String!
+    $address: String!
+    $dob: String!
+    $phoneNumber: String!
+    $emergencyContact: String!
+    $emergencyContactPhoneNumber: String!
   ) {
     addUser(
       firstName: $firstName
       lastName: $lastName
       email: $email
       password: $password
+      address: $address
+      dob: $dob
+      phoneNumber: $phoneNumber
+      emergencyContact: $emergencyContact
+      emergencyContactPhoneNumber: $emergencyContactPhoneNumber
     ) {
       token
       user {
         _id
       }
+    }
+  }
+`;
+
+export const ADD_EVENT = gql`
+  mutation addEvent($name: String!, $date: String!, $description: String!, $location: String) {
+    addEvent(name: $name, date: $date, description: $description, location: $location) {
+      name
+      date
+      location
+      description
+      _id
+    }
+  }
+`;
+
+export const ADD_COMMENT = gql`
+  mutation addComment($eventId: ID!, $commentBody: String!) {
+    addComment(eventId: $eventId, commentBody: $commentBody) {
+      _id
+      comments {
+        _id
+        commentBody
+        createdAt
+        username
+      }
+    }
+  }
+`;
+
+export const ADD_LIKE = gql`
+  mutation addLike($eventId: ID!) {
+    addLike(eventId: $eventId) {
+      _id
+      likes
+    }
+  }
+`;
+
+export const ADD_ATTENDEE = gql`
+  mutation addAttendee($eventId: ID!) {
+    addAttendee(eventId: $eventId) {
+      _id
+      attendees
+    }
+  }
+`;
+
+export const REMOVE_EVENT = gql`
+  mutation removeEvent($eventId: ID!) {
+    removeEvent(eventId: $eventId) {
+      _id
+    }
+  }
+`;
+
+export const REMOVE_COMMENT = gql`
+  mutation removeComment($eventId: ID!, $commentId: ID!) {
+    removeComment(eventId: $eventId, commentId: $commentId) {
+      _id
+      comments {
+        _id
+      }
+    }
+  }
+`;
+
+export const REMOVE_LIKE = gql`
+  mutation removeLike($eventId: ID!) {
+    removeLike(eventId: $eventId) {
+      _id
+    }
+  }
+`;
+
+export const REMOVE_ATTENDEE = gql`
+  mutation removeAttendee($eventId: ID!) {
+    removeAttendee(eventId: $eventId) {
+      _id
+    }
+  }
+`;
+
+export const CREATE_PAYMENT = gql`
+  mutation CreatePayment($user: ID!, $amount: Float!, $paymentMethod: String!, $paymentPurpose: String!) {
+    createPayment(user: $user, amount: $amount, paymentMethod: $paymentMethod, paymentPurpose: $paymentPurpose) {
+      _id
+      user {
+        _id
+      }
+      amount
+      paymentMethod
+      paymentDate
+      paymentPurpose
+      status
+    }
+  }
+`;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($id: ID!, $dues: Float!) {
+    updateUser(id: $id, dues: $dues) {
+      _id
+      dues
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query GetUser($id: ID!) {
+    user(id: $id) {
+      _id
+      firstName
+      lastName
+      address
+      dues
     }
   }
 `;
